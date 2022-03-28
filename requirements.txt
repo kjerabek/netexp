@@ -1,3 +1,6 @@
 dpkt
 pcap-ct
 numpy
+pytest
+mock
+pytest-mock

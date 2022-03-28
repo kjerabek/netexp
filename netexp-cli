@@ -1,0 +1,8 @@
+#! /usr/bin/env python3
+
+from netexp.probe import Probe
+
+
+if __name__ == '__main__':
+    probe = Probe()
+    probe.run()
