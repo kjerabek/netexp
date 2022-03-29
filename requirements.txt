@@ -1,5 +1,8 @@
 dpkt
-pcap-ct
+#pcap-ct
+#temporary solution until not fixed in official repo
+#https://github.com/4788665/pcap-ct/commit/dbedb178b82b1f17a371e7ae191074a1c8f870f1
+git+https://github.com/4788665/pcap-ct@master#egg=pcap-ct
 numpy
 pytest
 mock

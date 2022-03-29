@@ -1,6 +1,6 @@
 from netexp.info_extractors import TcpIpFlowExtractor, PacketExtractor
 from netexp.primitives.flow import AVAILABLE_FLOWS
-from netexp.inputs import PcapInput#, IfaceInput
+from netexp.inputs import PcapInput, IfaceInput
 from netexp.outputs import CsvOutput
 
 import argparse
