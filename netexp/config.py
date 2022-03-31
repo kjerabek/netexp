@@ -84,17 +84,15 @@ class Config(BaseConfig):
 
     @staticmethod
     def get_input(parsed_args):
-        input_obj = None
-
         if parsed_args.in_file_name:
             input_obj = PcapInput(file_path=parsed_args.in_file_name, filter=parsed_args.net_filter)
-        # else:
-        #    input_obj = IfaceInput(if_name=parsed_args.iface_name, filter=parsed_args.net_filter)
+        else:
+            input_obj = IfaceInput(if_name=parsed_args.iface_name, filter=parsed_args.net_filter)
 
         return input_obj
 
     def get_extractor(self, parsed_args):
-        if parsed_args.flow_format:
+        if parsed_args.flow_format is not None:
             extractor_obj = TcpIpFlowExtractor(self)
         else:
             extractor_obj = PacketExtractor(self)
