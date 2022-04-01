@@ -28,8 +28,8 @@ class TCPIPChunkBiFlowInfo(TCPIPChunkStatsBiFlowInfo):
         src_ip = self.packets[0].src_ip
 
         for index in range(0, self.num_packets_chunk):
-            #if index >= len(src_ips):
-            #    break
+            if index >= len(src_ips):
+                break
 
             if src_ips[index] == src_ip:
                 directions.append(constants.DIRECTION_VALUE_AB)
