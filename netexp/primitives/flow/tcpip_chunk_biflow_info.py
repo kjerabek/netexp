@@ -1,5 +1,6 @@
 from netexp.primitives.flow.tcpip_chunk_stats_biflow_info import TCPIPChunkStatsBiFlowInfo
 from netexp.primitives.packet.tcpip_packet_info import TCPIPPacketInfo
+from netexp.primitives.flow.tcpip_flow_info import TCPIPFlowInfo
 from netexp.common import constants
 from netexp.common import naming
 
@@ -27,8 +28,8 @@ class TCPIPChunkBiFlowInfo(TCPIPChunkStatsBiFlowInfo):
         src_ip = self.packets[0].src_ip
 
         for index in range(0, self.num_packets_chunk):
-            if index >= len(src_ips):
-                break
+            #if index >= len(src_ips):
+            #    break
 
             if src_ips[index] == src_ip:
                 directions.append(constants.DIRECTION_VALUE_AB)
@@ -39,7 +40,7 @@ class TCPIPChunkBiFlowInfo(TCPIPChunkStatsBiFlowInfo):
 
     def _extract_stats(self) -> dict:
         stats = dict()
-        stats.update(super().to_dict())
+        stats.update(TCPIPFlowInfo.to_dict(self))
 
         paysize_attributes = self._get_packets_attribute(naming.L4_PAYSIZE)
         directions = self._extract_directions(self._get_packets_attribute(naming.SRC_IP))
@@ -54,7 +55,10 @@ class TCPIPChunkBiFlowInfo(TCPIPChunkStatsBiFlowInfo):
             else:
                 final_attributes.append(mixed_attributes[index])
 
-        return self._extract_stats_to_dict(naming.ATTRIBUTE, final_attributes)
+        stats.update(self._extract_stats_to_dict(naming.ATTRIBUTE, final_attributes))
+
+        return stats
 
     def to_dict(self) -> dict:
+        self._set_packets_selection()
         return self._extract_stats()

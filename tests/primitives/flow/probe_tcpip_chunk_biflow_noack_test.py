@@ -14,6 +14,7 @@ class TestTCPIPChunkBiFlowNoack(ProbeTCPIPFlowBase):
         stats = processed_flow.to_dict()
 
         assert isinstance(stats, dict)
+        assert stats[naming.PROTO] == 'TCP'
         assert stats[f'0_{naming.ATTRIBUTE}'] == -367000
         assert stats[f'3_{naming.ATTRIBUTE}'] == 39000
         assert stats[f'35_{naming.ATTRIBUTE}'] == 56000
