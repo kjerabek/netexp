@@ -28,6 +28,7 @@ class PcapInput(BaseInput):
         try:
             self.pcap_reader = dpkt.pcapng.Reader(self.pcap_file)
         except:
+            self.pcap_file.seek(0, 0)
             self.pcap_reader = dpkt.pcap.Reader(self.pcap_file)
 
         self._set_l2_parser()
