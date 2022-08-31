@@ -40,7 +40,17 @@ class PcapInput(BaseInput):
             self.l2_parser = dpkt.ethernet.Ethernet
 
     def __iter__(self):
-        for timestamp, buffer in self.pcap_reader:
+        iter_input = self.pcap_reader.__iter__()
+
+        while True:
+            try:
+                timestamp, buffer = iter_input.__next__()
+            except dpkt.NeedData:
+                # TODO: add logging
+                continue
+            except StopIteration:
+                break
+
             pkt = self.l2_parser(buffer)
 
             yield timestamp, pkt
